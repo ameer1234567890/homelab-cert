@@ -1,0 +1,17 @@
+services:
+  homelab-cert:
+    image: ameer1234567890/homelab-cert:latest
+    container_name: homelab-cert
+    restart: unless-stopped
+    ports:
+      - "${HOMELAB_CERT_PORT:-8765}:8080"
+    environment:
+      # Change these! Or put them in a .env file next to this compose file.
+      HOMELAB_CERT_USER: ${HOMELAB_CERT_USER:-admin}
+      HOMELAB_CERT_PASSWORD: ${HOMELAB_CERT_PASSWORD:-changeme}
+      TZ: ${TZ:-UTC}
+    volumes:
+      - homelab-cert-data:/data   # root CA, certs, settings (back this up)
+
+volumes:
+  homelab-cert-data:
